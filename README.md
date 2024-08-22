@@ -1,12 +1,18 @@
 # XCP dissector
 
+![visitors](https://visitor-badge.laobi.icu/badge?page_id=835257451) ![GitHub stars](https://img.shields.io/github/stars/tracetronic/wireshark-xcp-dissector?style=flat) ![GitHub stars](https://img.shields.io/github/watchers/tracetronic/wireshark-xcp-dissector?style=flat) ![GitHub release](https://img.shields.io/github/v/release/tracetronic/wireshark-xcp-dissector)
+
 This repository provides a dissector that enables [Wireshark](https://www.wireshark.org/) to decode [XCP](https://www.asam.net/standards/detail/mcd-1-xcp/) packets.
 
-## Purpose and disclaimer
+## Purpose and Disclaimer
 
 This dissector is mainly intended as diagnostic aid for developing and troubleshooting one's own XCP implementations.
 
 It does not claim to be 100% complete or 100% correct, and it is no replacement for studying the specification documents of the XCP standard itself.
+
+## Future Improvements
+
+We’re dedicated to improving this dissector. If you find it valuable, please show your support by leaving a star and recommending it to others. The more interest we see, the better we can enhance the plugin in the future. Feel free to share any suggestions directly with us — your feedback helps us make this tool even better!
 
 ## Installation
 
@@ -48,7 +54,7 @@ Only CAN frames whose CAN IDs match the CAN IDs configured in the protocol prefe
 
 ## License
 
-Copyright (c) 2024 TraceTronic GmbH
+Copyright (c) 2024 tracetronic GmbH
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; version 2.
 
