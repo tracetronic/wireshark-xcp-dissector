@@ -1,6 +1,9 @@
 # XCP dissector
 
-![GitHub visitors](https://visitor-badge.laobi.icu/badge?page_id=835257451) ![GitHub stars](https://img.shields.io/github/stars/tracetronic/wireshark-xcp-dissector?style=flat) ![GitHub watchers](https://img.shields.io/github/watchers/tracetronic/wireshark-xcp-dissector?style=flat) ![GitHub release](https://img.shields.io/github/v/release/tracetronic/wireshark-xcp-dissector)
+[![GitHub visitors](https://visitor-badge.laobi.icu/badge?page_id=835257451)](https://github.com/tracetronic/wireshark-xcp-dissector)
+[![GitHub stars](https://img.shields.io/github/stars/tracetronic/wireshark-xcp-dissector?style=flat)](https://github.com/tracetronic/wireshark-xcp-dissector/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/tracetronic/wireshark-xcp-dissector?style=flat)](https://github.com/tracetronic/wireshark-xcp-dissector/watchers)
+[![GitHub release](https://img.shields.io/github/v/release/tracetronic/wireshark-xcp-dissector)](https://github.com/tracetronic/wireshark-xcp-dissector/releases)
 
 This repository provides a dissector that enables [Wireshark](https://www.wireshark.org/) to decode [XCP](https://www.asam.net/standards/detail/mcd-1-xcp/) packets.
 
