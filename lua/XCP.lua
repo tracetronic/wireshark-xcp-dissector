@@ -1,13 +1,20 @@
 -- XCP.lua
 -- XCP dissector for Wireshark, protocol layer
--- Version 0.1
 --
 -- Copyright (c) 2023-2024 tracetronic GmbH
 --
 -- SPDX-License-Identifier: GPL-2.0
 
 
-xcpProto = Proto("xcp", "Universal Measurement and Calibration Protocol")
+xcpProto = Proto("_xcp", "Universal Measurement and Calibration Protocol")
+
+--[[ Plugin metadata reported in Wireshark's About > Plugins dialog. ]]
+set_plugin_info({
+    version = "0.2.1",
+    description = "XCP dissector — Universal Measurement and Calibration Protocol",
+    author = "tracetronic GmbH",
+    repository = "https://github.com/tracetronic/wireshark-xcp"
+})
 
 --[[
 conversations: request-response tracking
@@ -392,8 +399,8 @@ function decode_cmd_modify_bits(buffer, pinfo, tree, pkt_data, comm_mode_basic)
     local andMask_field = buffer(2, 2)
     local xorMask_field = buffer(4, 2)
     tree:add(xcp_info, shiftValue_field, "Shift value: " .. hex(shiftValue, 2))
-    tree:add(xcp_info, andMask_field, "AND mask: " .. andMask_field:bytes():raw():tohex(false, ":"))
-    tree:add(xcp_info, xorMask_field, "XOR mask: " .. xorMask_field:bytes():raw():tohex(false, ":"))
+    tree:add(xcp_info, andMask_field, "AND mask: " .. andMask_field:bytes():tohex(false, ":"))
+    tree:add(xcp_info, xorMask_field, "XOR mask: " .. xorMask_field:bytes():tohex(false, ":"))
 end
 
 function decode_cmd_set_cal_page(buffer, pinfo, tree, pkt_data, comm_mode_basic)
@@ -1359,7 +1366,7 @@ function decode_res_upload(buffer, pinfo, tree, cmd_pkt, comm_mode_basic)
     if nElem == nil then
         -- Interpret the rest of the entire packet as data field if N_ELEM was not found
         -- in the previous cmd_upload packet
-        data_field = buffer(offset) 
+        data_field = buffer(offset)
     else
         data_field = buffer(offset, nElem * 2^address_granularity)
     end
@@ -2413,11 +2420,13 @@ function decode_err(buffer, pinfo, tree)
         end
     elseif err_code == 0x31 then
         -- ERR_GENERIC
-        local implementationSpecificDeviceErrorCode_field = buffer(2, 2)
-        local implementationSpecificDeviceErrorCode = parse_number(implementationSpecificDeviceErrorCode_field,
-            comm_mode_basic)
-        tree:add(xcp_info, implementationSpecificDeviceErrorCode_field,
-            "implementation-specific device error code: " .. implementationSpecificDeviceErrorCode)
+        if buffer:len() >= 4 then
+            local implementationSpecificDeviceErrorCode_field = buffer(2, 2)
+            local implementationSpecificDeviceErrorCode = parse_number(implementationSpecificDeviceErrorCode_field,
+                comm_mode_basic)
+            tree:add(xcp_info, implementationSpecificDeviceErrorCode_field,
+                "implementation-specific device error code: " .. implementationSpecificDeviceErrorCode)
+        end
     elseif err_code == 0x29 then
         -- ERR_SEQUENCE
         if cmd_pid == 0xef or cmd_pid == 0xca then
